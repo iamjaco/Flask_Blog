@@ -10,12 +10,12 @@ from flask_app.forms import PostForm
 def index():
     db.create_all()
     posts = Post.query.order_by(Post.id.desc()).all()
-    return render_template("index.html", posts=posts)
+    return render_template("index2.html", posts=posts)
 
 
 @app.route("/about")
 def about():
-    return render_template("index.html")
+    return render_template("index2.html")
 
 
 @app.route("/register", methods=['GET', 'POST'])
