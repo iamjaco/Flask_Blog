@@ -102,7 +102,7 @@ def user_exsists(username, email):
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.postType.data, content=form.content.data, author=current_user)
+        post = Post(title=form.title.data, postType=form.postType.data, content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
@@ -125,13 +125,15 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
-        post.title = form.postType.data
+        post.title = form.title.data
+        post.postType=form.postType.data
         post.content = form.content.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
+        form.postType.data = post.postType
         form.content.data = post.content
     return render_template('create_post.html', title='Update Post',
                            form=form, legend='Update Post')

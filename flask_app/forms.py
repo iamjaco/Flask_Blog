@@ -8,12 +8,12 @@ class PostForm(FlaskForm):
         'Title',
         [DataRequired()],
         choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
+            ('text', 'Standard Text Post'),
+            ('quote', 'Quote'),
+            ('idea', 'Idea'),
+            ('link', 'Link'),
+            ('image', 'Image'),
+            ('measure', 'Measure')
         ]
     )
     content = TextAreaField('Content', validators=[DataRequired()])
