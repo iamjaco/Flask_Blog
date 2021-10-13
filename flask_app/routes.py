@@ -102,7 +102,7 @@ def user_exsists(username, email):
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        post = Post(title=form.postType.data, content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
@@ -125,7 +125,7 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
-        post.title = form.title.data
+        post.title = form.postType.data
         post.content = form.content.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
