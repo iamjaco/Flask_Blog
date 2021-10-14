@@ -14,7 +14,11 @@
 
         <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
         <span>
+        {% if post.content|length < 120 %}
         <p class="article-content">{{ post.content }} <a class="text-muted" href="{{ url_for('post', post_id=post.id) }}">#</a> </p>
+        {% else %}
+        <p class="article-contentLong">{{ post.content }} <a class="text-muted" href="{{ url_for('post', post_id=post.id) }}">#</a> </p>
+        {% endif %}
         </span>
       </div>
     </article>
