@@ -8,7 +8,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <title>Flask Blog</title>
+  <title>iamjaco</title>
 
   <!-- Site Icon -->
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.ico') }}">
@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
+
+
 </head>
 
 <body>
@@ -29,9 +31,15 @@
 
   </header>
 
+
+
+
+
+
+
   <div class="container content">
     {% include 'includes/_messages.html' %}
-    
+
     <!-- Loads and renders content blocks of a template -->
     {% block content %} {% endblock %}
 

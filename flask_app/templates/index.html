@@ -1,27 +1,79 @@
+
+
+
 {% extends 'layout.html' %}
+
+
 
 {% block content %}
 
   {% for post in posts %}
     <article class="media content-section">
       <div class="media-body">
-        <div class="article-metadata">
-          <a class="mr-2" href="#">{{ post.author.username }}</a>
-          <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-          <small class="text-muted" href="#">{{ post.postType }}</small>
 
-        </div>
 
-        <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
-        <span>
-        {% if post.content|length < 76 %}
-        <p class="article-content">{{ post.content }} <a class="text-muted" href="{{ url_for('post', post_id=post.id) }}">#</a> </p>
-        {% else %}
-        <p class="article-contentLong">{{ post.content }} <a class="text-muted" href="{{ url_for('post', post_id=post.id) }}">#</a> </p>
+        <!--Add a url to the markdown content -->
+        {% set post_content = post.content + ' [#](' + url_for('post', post_id=post.id) + ')'%}
+
+        <!--Image Post -->
+        {% if post.postType == 'image' %}
+            {% if post.content is not none %}
+                {% set post_content = post.content %}
+
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <small class="text-muted" href="#">{{ post.postType }}</small>
+                </div>
+
+                <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+
+                <div class="article-img">{{ post_content|markdown }} </div>
+            {% endif %}
         {% endif %}
-        </span>
+
+        <!--Text Post -->
+        {% if post.postType == 'text' %}
+            {% if post.content is not none %}
+
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <small class="text-muted" href="#">{{ post.postType }}</small>
+                </div>
+
+                <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                    {% if post.content|length < 76 %}
+                        <div class="article-contentShort">{{ post_content|markdown }} </div>
+                    {% else %}
+                        <div class="article-contentLong">{{ post_content|markdown  }} </div>
+                    {% endif %}
+            {% endif %}
+        {% endif %}
+
+        <!--Quote Post -->
+        {% if post.postType == 'quote' %}
+            {% if post.content is not none %}
+
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <small class="text-muted" href="#">{{ post.postType }}</small>
+                </div>
+
+                <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                    {% if post.content|length < 76 %}
+                        <div class="article-contentShort">{{ post_content|markdown }} </div>
+                    {% else %}
+                        <div class="article-contentLong">{{ post_content|markdown  }} </div>
+                    {% endif %}
+            {% endif %}
+        {% endif %}
+
       </div>
     </article>
   {% endfor %}
+
+
 
 {% endblock %}
