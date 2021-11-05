@@ -21,7 +21,7 @@
                 {% set post_content = post.content %}
 
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <!-- <a class="mr-2" href="#">{{ post.author.username }}</a> -->
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                     <small class="text-muted" href="#">{{ post.postType }}</small>
                 </div>
@@ -37,9 +37,11 @@
             {% if post.content is not none %}
 
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <!-- <a class="mr-2" href="#">{{ post.author.username }}</a> -->
+
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-                    <small class="text-muted" href="#">{{ post.postType }}</small>
+                    <i class="fas fa-signature"></i>
+                    <!--<small class="text-muted" href="#">{{ post.postType }}</small>-->
                 </div>
 
                 <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
@@ -56,9 +58,10 @@
             {% if post.content is not none %}
 
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ post.author.username }}</a>
+                    <!-- <a class="mr-2" href="#">{{ post.author.username }}</a> -->
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-                    <small class="text-muted" href="#">{{ post.postType }}</small>
+                    <i class="fas fa-quote-left"></i>
+                    <!--<small class="text-muted" href="#">{{ post.postType }}</small>-->
                 </div>
 
                 <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>

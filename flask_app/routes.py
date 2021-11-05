@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, abort, jsonify, make_response
 from flask_login import login_user, logout_user, login_required, current_user
 from passlib.hash import sha256_crypt
 from flask_misaka import Misaka
@@ -10,11 +10,19 @@ from flask_app.forms import PostForm
 
 Misaka(app)
 
+app.config["IMAGE_UPLOADS"] = "/user/iamjaco/files/home/iamjaco/Flask_Blog/flask_app/static/images"
+
 @app.route("/")
 def index():
     db.create_all()
     posts = Post.query.order_by(Post.id.desc()).all()
     return render_template("index.html", posts=posts)
+
+@app.route("/day")
+def index1():
+    db.create_all()
+    posts = Post.query.order_by(Post.id.desc()).all()
+    return render_template("index2.html", posts=posts)
 
 
 @app.route("/about")
@@ -153,3 +161,30 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('index'))
+
+@app.route("/api/v1/post/new", methods=['POST'])
+def api_post():
+    received = request.json
+    key = received['key']
+    content = received['content']
+
+    if 'postType' not in received:
+        postType = 'text'
+    else:
+        postType = received['postType']
+    if request.files:
+            postType = 'image'
+    if key == '0455588534':
+        post = Post(title="", content=content, user_id=1, postType=postType)
+        db.session.add(post)
+        db.session.commit()
+        return jsonify({'content': content}), 201
+    else:
+        return make_response(jsonify({'error': 'Unauthorized access'}), 403)
+
+# @app.route("/api/v1/upload-image", methods=["GET", "POST"])
+# def upload_image():
+#     if request.method == "POST":
+#         if request.files:
+#             image = request.files["image"]
+#             image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
