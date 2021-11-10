@@ -43,16 +43,18 @@ select {
 
 
 <div class="d-flex justify-content-between">
-    {% if prev_url is not none %}
-    <div class="pager-button btn btn-outline-primary disabled">
-        <a href="{{ prev_url or '#' }}">&larr; Newer</a>
-    </div>
-    {% endif %}
+    {%if 'home' in url_for(request.endpoint, **request.view_args) %}
+        {% if prev_url is not none %}
+        <div class="pager-button btn btn-outline-primary disabled">
+            <a href="{{ prev_url or '#' }}">&larr; Newer</a>
+        </div>
+        {% endif %}
 
-    {% if next_url is not none %}
-    <div class="pager-button btn btn-outline-primary">
-        <a href="{{ next_url or '#' }}">Older &rarr;</a>
-    </div>
+        {% if next_url is not none %}
+        <div class="pager-button btn btn-outline-primary">
+            <a href="{{ next_url or '#' }}">Older &rarr;</a>
+        </div>
+        {% endif %}
     {% endif %}
 </div>
 
